@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load humanize supportdesk %}
+
+{% block content %}
+{% include "header.html" %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <p class="h3 mb-2">
+        All my open requests
+      </p>
+      <div class="row">
+        {% for request in object_list %}
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title clearfix">
+                <h5>
+                  <a href="{% url 'request-detail' request.pk %}">{{ request.summary }} </a>
+                  {% if request.high_priority %}
+                  <span class="badge badge-danger">High priority</span>
+                  {% endif %}
+                  <span class="badge badge-pill badge-{{ request.status | button_type }} float-right">{{ request.get_status_display }}</span>
+                </h5>
+              </div>
+              <p class="card-text">{{ request.description |truncatechars:100}}</p>
+              <div class="card-text">
+                <h6 class="card-subtitle mb-2 text-muted pt-2">Quick actions</h6>
+                <div class="row">
+                  <a class="btn btn-outline-primary font-weight-light ml-1 btn-sm" href="{% url 'request-reassign' request.pk %}" role="button">
+                    <i class="fa fa-user"></i> Reassign to someone</a>
+                  <a class="btn btn-outline-success font-weight-light ml-1 btn-sm" href="{% url 'request-complete' request.pk %}" role="button">
+                    <i class="fa fa-check"></i> Mark as completed</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

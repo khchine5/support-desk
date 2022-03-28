@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.humanize",
     "crispy_forms",
     "authentication",
     "supportdesk",
@@ -53,6 +54,9 @@ MIDDLEWARE = [
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+AUTH_USER_MODEL = "authentication.SupportUser"
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 
 ROOT_URLCONF = "mysite.urls"

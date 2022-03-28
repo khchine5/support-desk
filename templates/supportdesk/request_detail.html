@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+
+{% block content %}
+<div class="container m-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12 float-left">
+            <a href="{% url 'requests-list' %}"><i class="fa fa-arrow-left"></i></a>
+        </div>
+        <div class="col-md-12">
+            <p class="h3 mb-2">
+                {{ object.summary }}
+                {% if object.high_priority %}
+                <span class="badge badge-danger">High priority</span>
+                {% endif %}
+                <a class="btn btn-success font-weight-light ml-1 btn-sm float-right"
+                    href="{% url 'request-complete' request.pk %}" role="button">
+                    <i class="fa fa-check"></i> Mark as completed</a>
+            </p>
+            <div class="row">
+                <div class="col-sm-6">
+                    <i class="fa fa-calendar"></i> <span class="p-1 font-weight-bold">Created {{ object.created_on | naturaltime }} </span>
+                </div>
+                {% if object.agent %}
+                <div class="col-sm-6">
+                    <i class="fa fa-user"></i><span class="p-1 font-weight-bold">Assigned to {{ object.agent }}
+                        (Agent)</span>
+                </div>
+                {% endif %}
+            </div>
+            <div class="row m-4">
+                <p>{{ object.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
